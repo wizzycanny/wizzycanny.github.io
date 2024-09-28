@@ -5,6 +5,7 @@
 body {
     font-family: 'Bebas Neue', sans-serif;  /* Professional Font */
     margin: 0;
+    text-decoration: none;
     padding: 0;
     background: linear-gradient(135deg, #1d2671, #c33764); /* Gradient Background */
     color: #f4f4f4;
