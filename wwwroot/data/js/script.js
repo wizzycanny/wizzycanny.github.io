@@ -85,3 +85,44 @@ backToTopButton.addEventListener('click', () => {
         behavior: 'smooth'
     });
 });
+
+// Fetch latest news from IGN API
+async function fetchIGNNews() {
+    const response = await fetch('https://ign-news.p.rapidapi.com/queryparams', {
+        method: 'GET',
+        headers: {
+            'x-rapidapi-host': 'ign-news.p.rapidapi.com',
+            'x-rapidapi-key': '3b436a61b0mshe9085a50061a58bp1c434bjsn63a76f925448'
+        }
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        displayNews(data.articles);
+    } else {
+        console.error('Failed to fetch news:', response.status);
+    }
+}
+
+// Display fetched news articles on the news page
+function displayNews(articles) {
+    const newsContainer = document.getElementById('news');
+    newsContainer.innerHTML = ''; // Clear existing content
+
+    articles.forEach(article => {
+        const articleElement = document.createElement('div');
+        articleElement.classList.add('news-article');
+        
+        articleElement.innerHTML = `
+            <h3>${article.title}</h3>
+            <p>${article.description}</p>
+            <a href="${article.link}" target="_blank">Read more</a>
+        `;
+        newsContainer.appendChild(articleElement);
+    });
+}
+
+// Call the fetch function when the page loads
+if (document.getElementById('news')) {
+    fetchIGNNews();
+}
